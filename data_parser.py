@@ -3,10 +3,11 @@
 正则，bs4，xpath，pyquery
 
 """
-import requests
-import urllib.request
+import os
 import re
-import bs4
+import urllib.request
+
+import requests
 
 
 def imageCrawl_requests():
@@ -58,4 +59,18 @@ def batchImageCrawl():
     # 1.捕获当前页面源码数据
     url = 'https://nice.ruyile.com/'
     page_text = requests.get(url=url, headers=headers).text
+
     # 2.从当前获取的页面源码数据中解析出图片url
+    ex = '<div class="tp_a">.*?<img src="(.*?)" alt=.*?</div>'
+    img_src_list = re.findall(ex, page_text, re.S)
+
+    # 3.新建一个文件夹存储图片
+    dirName = 'ImgLibs'
+    if not os.path.exists(dirName):
+        os.makedirs(dirName)
+
+    # 4.根据图片地址src进行爬取并存储到预新建文件夹
+    for src in img_src_list:
+        imgPath = dirName + '/' + src.split('/')[-1]
+        urllib.request.urlretrieve(src, imgPath)
+        print(imgPath, '下载成功！！！')
