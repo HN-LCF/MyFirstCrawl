@@ -1,0 +1,97 @@
+# 二、数据解析
+
+## 0 基础
+
+### 概要
+
+* 数据解析
+  * 正则表达式（后scrapy框架用）
+  * bs4
+  * xpath
+  * pyquery（自学）
+
+## 1 正则表达式
+
+### 1.1 正则解析
+
+* **正则基本概念：**
+  * 1、限定符
+    * ？ 前面的字符出现0次或1次
+    * \* ≥0次
+    * \+ ≥1次
+    * {m} 出现m次
+    * {m,} ≥m次
+    * {m,n} 出现次数在m-n之间
+    * 如果希望匹配多个字符的重复，则将想要匹配的字符用()括起来，再添加限定符*
+  * 2、“或”运算符
+    * 竖线 |
+  * 3、字符类
+    * [a-w] 取的字符必须在方括号中；也可在[]中指定字符范围，如[a-z]表示所有小写英文字符，[a-zA-Z]表示所有小写大写英文字符，[a-zA-Z0-9]代表所有大小写英文字符和数字。如果在方括号前面加一个尖号^，表示匹配除尖号后面列出的字符以外的字符，如[^0-9]表示匹配非数字字符（包含换行符）
+  * 4、元字符
+    * \d：数字字符
+  \D：非数组字符
+  \w：单词字符（英文、数字、下划线）
+  \W：非单词字符
+  \s：空白符，包括空格、Tab制表符、换行符和换页符
+  \S：非空白字符
+  . ：任意字符，不包含换行符
+  ^ ：匹配行首
+  $ ：匹配行尾
+  * 5、贪婪与懒惰匹配
+    * ![正则基本概念.png](C:\Users\86199\Pictures\Screenshots\205.png)
+
+* **用途**：
+  * 使用正则进行图片数据的批量解析爬取
+  * 如何爬取图片数据？
+    * 方式1：基于requests
+    * 方式2：基于urllib
+        * urllib模块作用与requests一样，都是基于网络请求的模块
+        * requests问世后迅速取代了urllib
+
+> * **实例1：分别使用requests和urllib抓取图片**
+
+```python
+import requests
+
+def imageCrawl_requests():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68 '
+    }
+    img_url = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa2.att.hudong.com%2F74%2F24' \
+              '%2F23300001248577135219240898162.jpg&refer=http%3A%2F%2Fa2.att.hudong.com&app=2002&size=f9999,' \
+              '10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1616133427&t=8cc5c8563e57dabed1cf2eeebe33e886 '
+    response = requests.get(url=img_url, headers=headers)
+    # content返回的是二进制形式的响应数据
+    img_data = response.content
+    with open('./1.jpg', 'wb') as fp:
+        fp.write(img_data)
+```
+
+```python
+import requests
+
+def imageCrawl_urllib():
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68 '
+    }
+    img_url = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fa2.att.hudong.com%2F74%2F24' \
+              '%2F23300001248577135219240898162.jpg&refer=http%3A%2F%2Fa2.att.hudong.com&app=2002&size=f9999,' \
+              '10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1616133427&t=8cc5c8563e57dabed1cf2eeebe33e886 '
+    # urlretrieve方法可以直接对url发起请求并进行持久化存储
+    urllib.request.urlretrieve(img_url, './2.jpg')
+```
+
+- 上述两种爬取图片操作的不同之处在于：
+    - 使用urllib爬取图片无法进行UA伪装，而requests的方式可以
+- **需求：爬取校花网中的图片数据**
+    - url:<https://nice.ruyile.com/>
+    - 操作：需要将每一张图片的url解析出来， 然后对地址发起请求爬取
+
+
+## 2 bs4
+
+## 3 xpath
+
+## 4 pyquery
