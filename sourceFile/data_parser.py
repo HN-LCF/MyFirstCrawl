@@ -93,7 +93,7 @@ def pageParser_bs4():
         3.取文本、取属性
     :return:
     """
-    fp = open('E:/程序设计/PyCharm/项目/myFirstCrawl/Test/test_bs4.html', 'r', encoding="utf-8", errors="ignore")
+    fp = open('.../Test/test_bs4.html', 'r', encoding="utf-8", errors="ignore")
     soup = BeautifulSoup(fp, 'lxml')
     # soup.p
     # soup.find('li', class_='level2')
@@ -107,3 +107,34 @@ def pageParser_bs4():
         print(tag['href'])
     # tag['attrName']--标签属性
     # tag.text/string--标签文本
+
+
+def novelCrawl():
+    """
+    爬取《三国演义》小说全篇
+    url：https://www.shicimingju.com/book/sanguoyanyi.html
+    :return:
+    """
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68 '
+    }
+    main_url = 'https://www.shicimingju.com/book/sanguoyanyi.html'
+    fp = open('.../TextLibs/sanguo.txt', 'w', encoding='utf-8')
+    page = requests.get(url=main_url, headers=headers)
+    page.encoding = 'utf-8'
+    page_text = page.text
+    # 数据解析：章节标题，详情页url，章节内容
+    m_soup = BeautifulSoup(page_text, 'lxml')
+    # 所有目录所在的a标签（列表）
+    a_list = m_soup.select('.book-mulu > ul > li > a')
+    for a in a_list:
+        title = a.string
+        detail_url = 'https://www.shicimingju.com/' + a['href']
+        # 对详情页发起请求解析内容
+        page_text_detail = requests.get(url=detail_url, headers=headers).text
+        d_soup = BeautifulSoup(page_text_detail, 'lxml')
+        chapter = d_soup.select('chapter_content')
+        fp.write(title + ':' + chapter + '\n')
+        print(title, '保存成功!!!')
+    fp.close()
