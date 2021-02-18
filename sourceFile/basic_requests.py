@@ -21,13 +21,14 @@ def generalCrawl():
 
 
 def webCollector(keyWord):
-    '''
+    """
     基于搜狗针对指定不同的关键字将其对应的页面数据进行爬取
     携带了请求参数url，并将url携带的参数进行动态化
-    '''
+    """
     # 伪装User-Agent作为请求头
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
     # 实现参数动态化
     params = {
         'query': keyWord
@@ -44,14 +45,15 @@ def webCollector(keyWord):
 
 
 def favoriteMovie():
-    '''
+    """
     通过豆瓣爬取某类排行榜电影的详细信息
     电影名称name、评分score等
     用抓包工具获取所需动态数据数据包相关信息即可
-    '''
+    """
     # 伪装User-Agent作为请求头
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
     # 定位出动态数据对应数据包的url
     url = 'https://movie.douban.com/j/chart/top_list'
     # 字符串参数序列化为字典
@@ -75,12 +77,13 @@ def favoriteMovie():
 
 
 def pagingCrawl():
-    '''
+    """
     分页数据的爬取--以爬取肯德基餐厅位置的数据为例
     通过for循环对每一次Ajax请求的数据进行爬取并写入
-    '''
+    """
     headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68'}
     url = 'http://www.kfc.com.cn/kfccda/ashx/GetStoreList.ashx?op=keyword'
 
     for page in range(1, 9):
@@ -112,7 +115,7 @@ def pagingCrawl():
 
 
 def cosmeticsCrawl():
-    '''
+    """
      任务：爬取药监总局中的企业详情数据
      url：<http://scxk.nmpa.gov.cn:81/xk/>
      需求：
@@ -135,7 +138,7 @@ def cosmeticsCrawl():
          response--企业详情页响应
          pageText--企业详情页Json数据，
          inf（information)--爬取的企业详细信息(字典）
-    '''
+    """
 
     socket.setdefaulttimeout(20)
     headers = {
@@ -165,8 +168,8 @@ def cosmeticsCrawl():
             }
             with open('./pre_company.txt', 'a', encoding='utf-8') as f:
                 # 将字典以Json数据格式写入文件，设置缩进量indent为4
-                pre_json_str = json.dump(pre_inf, f, ensure_ascii=False, indent=4)
-            ##根据爬取的企业id参数，爬取详情页的企业信息
+                json.dump(pre_inf, f, ensure_ascii=False, indent=4)
+            # 根据爬取的企业id参数，爬取详情页的企业信息
             url = 'http://scxk.nmpa.gov.cn:81/xk/itownet/portalAction.do?method=getXkzsById'
             data = {
                 'id': c_id
@@ -195,6 +198,6 @@ def cosmeticsCrawl():
             }
             with open('./company.txt', 'a', encoding='utf-8') as fp:
                 # 将字典以Json数据格式写入文件，设置缩进量indent为4
-                json_str = json.dump(inf, fp, ensure_ascii=False, indent=4)
+                json.dump(inf, fp, ensure_ascii=False, indent=4)
 
             time.sleep(1)

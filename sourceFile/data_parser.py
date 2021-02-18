@@ -8,6 +8,7 @@ import re
 import urllib.request
 
 import requests
+from bs4 import BeautifulSoup
 
 
 def imageCrawl_requests():
@@ -74,3 +75,35 @@ def batchImageCrawl():
         imgPath = dirName + '/' + src.split('/')[-1]
         urllib.request.urlretrieve(src, imgPath)
         print(imgPath, '下载成功！！！')
+
+
+"""
+../ 表示当前文件所在的目录的上一级目录
+./ 表示当前文件所在的目录(可以省略)
+/ 表示当前站点的根目录(域名映射的硬盘目录)
+"""
+
+
+def pageParser_bs4():
+    """
+    使用bs4的BeautifulSoup类解析网页Html代码
+    操作：
+        1.实例化对象
+        2.定位所需标签
+        3.取文本、取属性
+    :return:
+    """
+    fp = open('E:/程序设计/PyCharm/项目/myFirstCrawl/Test/test_bs4.html', 'r', encoding="utf-8", errors="ignore")
+    soup = BeautifulSoup(fp, 'lxml')
+    # soup.p
+    # soup.find('li', class_='level2')
+    # soup.findAll('li', class_='level2')
+    # soup.select('.level2')
+    pTag = soup.findAll('p')
+    for tag in pTag:
+        print(tag.string)
+    liTag = soup.select('.tag > ul > li > span > a')
+    for tag in liTag:
+        print(tag['href'])
+    # tag['attrName']--标签属性
+    # tag.text/string--标签文本
