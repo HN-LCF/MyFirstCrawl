@@ -9,6 +9,7 @@ import urllib.request
 
 import requests
 from bs4 import BeautifulSoup
+from lxml import etree
 
 
 def imageCrawl_requests():
@@ -84,7 +85,7 @@ def batchImageCrawl():
 """
 
 
-def pageParser_bs4():
+def pageParse_bs4():
     """
     使用bs4的BeautifulSoup类解析网页Html代码
     操作：
@@ -93,7 +94,7 @@ def pageParser_bs4():
         3.取文本、取属性
     :return:
     """
-    fp = open('.../Test/test_bs4.html', 'r', encoding="utf-8", errors="ignore")
+    fp = open('./Test/test_parse.html', 'r', encoding="utf-8", errors="ignore")
     soup = BeautifulSoup(fp, 'lxml')
     # soup.p
     # soup.find('li', class_='level2')
@@ -120,7 +121,7 @@ def novelCrawl():
                       'Chrome/88.0.4324.150 Safari/537.36 Edg/88.0.705.68 '
     }
     main_url = 'https://www.shicimingju.com/book/sanguoyanyi.html'
-    fp = open('.../TextLibs/sanguo.txt', 'w', encoding='utf-8')
+    fp = open('./TextLibs/sanguo.txt', 'w', encoding='utf-8')
     page = requests.get(url=main_url, headers=headers)
     page.encoding = 'utf-8'
     page_text = page.text
@@ -132,9 +133,37 @@ def novelCrawl():
         title = a.string
         detail_url = 'https://www.shicimingju.com/' + a['href']
         # 对详情页发起请求解析内容
-        page_text_detail = requests.get(url=detail_url, headers=headers).text
+        page_detail = requests.get(url=detail_url, headers=headers)
+        page_detail.encoding = 'utf-8'
+        page_text_detail = page_detail.text
         d_soup = BeautifulSoup(page_text_detail, 'lxml')
-        chapter = d_soup.select('chapter_content')
+        chapter_tag = d_soup.find('div', class_='chapter_content')
+        chapter = chapter_tag.text
         fp.write(title + ':' + chapter + '\n')
         print(title, '保存成功!!!')
     fp.close()
+
+
+def pageParse_xpath():
+    """
+
+    -----------------------------------------------------------------
+    * 标签定位：
+        * 路径定位--meta:
+            tree.xpath('/html/head/meta')
+            tree.xpath('/html//meta')
+            tree.xpath('//meta')
+        * 属性定位：
+            tree.xpath('//div[@class="tag"]//li')
+        * 引定位：
+            tree.xpath('//div[@class="tag"]//li[1]')
+    * 取文本：
+        tree.xpath('//a[@id="fang"]/text()')
+    * 取属性：
+        tree.xpath('//a[@id="fang"]/@href')
+    :return:
+    """
+    parser = etree.HTMLParser(encoding="utf-8")
+    tree = etree.parse('./Test/test_parse.html', parser=parser)
+
+    print(tree.xpath('//a[@id="fang"]/@href'))
