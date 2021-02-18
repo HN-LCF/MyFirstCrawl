@@ -165,5 +165,6 @@ def pageParse_xpath():
     """
     parser = etree.HTMLParser(encoding="utf-8")
     tree = etree.parse('./Test/test_parse.html', parser=parser)
-
-    print(tree.xpath('//a[@id="fang"]/@href'))
+    a = tree.xpath('//a[@id="fang"]/@href')
+    print(a)
+    print(isinstance(a, list))
