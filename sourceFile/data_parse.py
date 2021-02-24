@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 from lxml import etree
 
 
-def imageCrawl_requests():
+def image_crawl_requests():
     """
     requests直接抓取图片
     with持续化存储
@@ -32,7 +32,7 @@ def imageCrawl_requests():
         fp.write(img_data)
 
 
-def imageCrawl_urllib():
+def image_crawl_urllib():
     """
     利用urllib中request类的urlretrieve方法
     直接从图片url进行爬取并保存
@@ -49,7 +49,7 @@ def imageCrawl_urllib():
     urllib.request.urlretrieve(img_url, './2.jpg')
 
 
-def batchImageCrawl():
+def batch_image_crawl():
     """
     从校花网中批量爬取图片（无动态加载数据）
     :return:
@@ -85,7 +85,7 @@ def batchImageCrawl():
 """
 
 
-def pageParse_bs4():
+def page_parse_bs4():
     """
     使用bs4的BeautifulSoup类解析网页Html代码
     操作：
@@ -110,7 +110,7 @@ def pageParse_bs4():
     # tag.text/string--标签文本
 
 
-def novelCrawl():
+def novel_crawl_san_guo():
     """
     爬取《三国演义》小说全篇
     url：https://www.shicimingju.com/book/sanguoyanyi.html
@@ -144,7 +144,7 @@ def novelCrawl():
     fp.close()
 
 
-def pageParse_xpath():
+def page_parse_xpath():
     """
 
     -----------------------------------------------------------------

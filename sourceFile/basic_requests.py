@@ -5,7 +5,7 @@ import time
 import requests
 
 
-def generalCrawl():
+def general_crawl():
     """
     爬取搜狗首页面数据
     """
@@ -20,7 +20,7 @@ def generalCrawl():
         fp.write(pageText)
 
 
-def webCollector(keyWord):
+def web_collector(keyWord):
     """
     基于搜狗针对指定不同的关键字将其对应的页面数据进行爬取
     携带了请求参数url，并将url携带的参数进行动态化
@@ -44,7 +44,7 @@ def webCollector(keyWord):
     print(fileName, '爬取成功')
 
 
-def favoriteMovie():
+def favorite_movie():
     """
     通过豆瓣爬取某类排行榜电影的详细信息
     电影名称name、评分score等
@@ -76,7 +76,7 @@ def favoriteMovie():
             fp.write(str)
 
 
-def pagingCrawl():
+def page_crawl():
     """
     分页数据的爬取--以爬取肯德基餐厅位置的数据为例
     通过for循环对每一次Ajax请求的数据进行爬取并写入
@@ -114,7 +114,7 @@ def pagingCrawl():
                 fp.write(r_str)
 
 
-def cosmeticsCrawl():
+def cosmetics_crawl():
     """
      任务：爬取药监总局中的企业详情数据
      url：<http://scxk.nmpa.gov.cn:81/xk/>
