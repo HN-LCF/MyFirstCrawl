@@ -15,7 +15,6 @@
 
 import requests
 import random
-import json
 
 from lxml import etree
 

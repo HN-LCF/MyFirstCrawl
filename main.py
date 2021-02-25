@@ -11,7 +11,6 @@
 #   -
 
 
-from sourceFile import novel_crawl_bi_qu_ge as nb
 from sourceFile import login_simulation as ls
 
 ls.information_crawl()
