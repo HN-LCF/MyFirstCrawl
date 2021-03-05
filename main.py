@@ -10,16 +10,19 @@
 # todo:
 #   -
 
-
 from sourceFile import login_simulation as ls
+from sourceFile import novel_crawl_bi_qu_ge as nb
 
-ls.information_crawl()
 
+ls.simulate_login()
+
+# var = [i for i in range(10) if i % 2 == 0]
+# print(var)
 
 # novel_dict = {
 #     'novel_name': 'mu_shen_ji',
-#     'novel_url': 'http://www.biqu6.com/14_14845/',
+#     'novel_url': 'http://www.biqu6.com/1_1785/',
 #     'chapter_start': 9,
-#     'chapter_end': 1830
+#     'chapter_end': 1783
 # }
-# mu_shen_ji = nb.BiQuGe(novel_dict)
+
