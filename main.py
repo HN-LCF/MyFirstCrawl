@@ -10,12 +10,9 @@
 # todo:
 #   -
 
-from sourceFile import login_simulation as ls
-from sourceFile import novel_crawl_bi_qu_ge as nb
+from sourceFile import scu_grade as sg
 
-
-ls.simulate_login()
-
+sg.demo()
 # var = [i for i in range(10) if i % 2 == 0]
 # print(var)
 
@@ -25,4 +22,3 @@ ls.simulate_login()
 #     'chapter_start': 9,
 #     'chapter_end': 1783
 # }
-

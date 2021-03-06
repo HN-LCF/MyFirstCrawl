@@ -193,7 +193,7 @@ def simulate_login():
         'email': 'lou116211@outlook.com',
         'pwd': 'lou116211',
         'code': rand_code,
-        'denglu': '登录'
+        'denglu': '登录',
     }
     after_login_page_text = session.post(url=after_login_url, headers=headers, data=data).text  # 获取了登陆成功后对应页面的源码数据
     with open('./gushiwen.html', 'w', encoding='utf-8') as fp:
