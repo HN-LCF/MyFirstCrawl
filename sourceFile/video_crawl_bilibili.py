@@ -24,7 +24,7 @@ head = {  # 模拟浏览器身份头向对方发送消息
     "user-agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.90 Safari/537.36 Edg/89.0.774.57'
 }
 
-baseurl = 'https://www.bilibili.com/video/BV1mp4y1H7Rr?from=search&seid=15355725231831797797'
+baseurl = 'https://www.bilibili.com/video/BV1Bf4y1h781'
 html = requests.get(url=baseurl, headers=head).text
 doc = pq(html)
 title = doc('#viewbox_report > h1 > span').text()
@@ -49,7 +49,7 @@ begin = 0
 end = 1024 * 1024 - 1
 flag = 0
 
-filename = "./" + title + ".flv"
+filename = "F:/桌面/" + title + ".flv"
 url = temp["data"]["dash"]["video"][0]['baseUrl']
 while True:
     headers.update({'Range': 'bytes=' + str(begin) + '-' + str(end)})
@@ -70,7 +70,7 @@ while True:
 
 print('--------------------------------------------')
 print('视频下载完成')
-filename = "./" + title + ".mp3"
+filename = "F:/桌面/" + title + ".mp3"
 url = temp["data"]["dash"]["audio"][0]['baseUrl']
 while True:
     headers.update({'Range': 'bytes=' + str(begin) + '-' + str(end)})
